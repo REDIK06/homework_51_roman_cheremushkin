@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о коте</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="stats_body">
+    <div class="container">
+        <img src="{% static cat.get_avatar %}" alt="Avatar" class="avatar">
+        <div class="info">
+            <p>Кот - {{ cat.name }}</p>
+            <p>Возраст - {{ cat.age }}год</p>
+            <p>Уровень счастья -  {{ cat.happiness }}%</p>
+            <p>Уровень сытости - {{ cat.hunger }}%</p>
+            <p>Состояние сна - {% if cat.is_sleeping %}Спит{% else %}Бодрствует{% endif %}</p>
+        </div>
+    </div>
+
+    <form class="form_stats" method="POST">
+    {% csrf_token %}
+    <select name="action" required>
+        <option value="" disabled selected>Выберите действие</option>
+        <option value="play">поиграть с котом</option>
+        <option value="feed">покормить кота</option>
+        <option value="sleep">уложить спать кота</option>
+    </select>
+    <button class="btn_stats" type="submit">подтвердить</button>
+    </form>
+
+    <a href="/">Вернуться на главную</a>
+</body>
+</html>
+
